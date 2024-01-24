@@ -4,7 +4,7 @@ using Cart.Data;
 using Microsoft.EntityFrameworkCore;
 
 [ApiController]
-[Route("MMcontroller")]
+[Route("Ccontroller")]
 public class MainMenuController : ControllerBase{
 
     private readonly CartContext _context;
@@ -24,10 +24,10 @@ public class MainMenuController : ControllerBase{
     public async Task<ActionResult<CartItem>> GetProduct(int id){
         if(_context.CartProducts==null) return Problem("Something is wrong!");
 
-        var prod= await _context.CartProducts.FindAsync(id);
+        var prod= await _context.CartProducts.FirstOrDefaultAsync(p=>p.ProductId==id);
         
         if(prod==null){
-            return NotFound("No Product Found");
+            return NotFound("");
         }
 
         return prod;
@@ -36,7 +36,8 @@ public class MainMenuController : ControllerBase{
     [HttpPost]
     public async Task<ActionResult> PostProduct(CartItem prod){
         if(_context.CartProducts==null) return Problem("Someting is wrong!");
-
+        // var item=_context.CartProducts.FindAsync(prod.Id);
+        
         _context.CartProducts.Add(prod);
         await _context.SaveChangesAsync();
 
