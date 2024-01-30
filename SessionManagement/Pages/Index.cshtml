@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to</h1>
+    <form method="post" asp-page-handler="SubmitForm">
+        <h1 class="display-4"><b>Session Management</b></h1>
+
+        <div>
+        <label asp-for="Customer.Id"></label>
+        <input asp-for="Customer.Id"  />
+        </div>
+<br>
+        <div>
+        <label asp-for="Customer.Name"></label>
+        <input asp-for="Customer.Name"  />
+        </div>
+<br>
+        <div>
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount"/>
+        </div>
+
+        <button type="submit" id="btn">Submit</button>
+    </form>
+
+    @if(!string.IsNullOrEmpty(@Model.TempMessage)){
+        <div>
+            @Model.TempMessage
+        </div>
+    }
+</div>
